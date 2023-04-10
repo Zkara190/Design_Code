@@ -1,0 +1,19 @@
+// This code will calibrate the differential amplifier when the thermometer starts.
+// Run this code while autozero is shorting inputs together and grounding input of
+// thermopile
+#include <stdio.h>
+
+float upperVoltRef = 2.1;  // reference voltage of circuit
+float lowerVoltRef = 1.9;   // "
+float vAdj = 0.0001;    // adjustment starts at 0
+float increment = 0.01; // increment the adjustment by this value
+float vOut = 0.5;       // sample output voltage
+int main()
+{
+    for (vOut; vOut < lowerVoltRef && vOut < lowerVoltRef; vAdj = vAdj+increment ){
+        vOut = 1.5*vAdj;       //example of how the vOut will scale with vAdj
+        printf("vOut = %f vAdj = %f\n\n", vOut, vAdj);     // see our values
+    // insert code to output vAdj to amplifier
+    }
+    return 0 ;// do not know if we return 0 it will stop outputing vAdj
+}
