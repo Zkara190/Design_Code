@@ -2,18 +2,31 @@
 // Run this code while autozero is shorting inputs together and grounding input of
 // thermopile
 #include <stdio.h>
+#include "main.h"
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 
 float upperVoltRef = 2.1;  // reference voltage of circuit
 float lowerVoltRef = 1.9;   // "
 float vAdj = 0.0001;    // adjustment starts at 0
 float increment = 0.01; // increment the adjustment by this value
-float vOut = 0.5;       // sample output voltage
+float vOut = 0.5;       // sample output votlage
+
 int main()
 {
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    
+    float pinA_8 = HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); // configure output pin 
+    
     for (vOut; vOut < lowerVoltRef && vOut < lowerVoltRef; vAdj = vAdj+increment ){
         vOut = 1.5*vAdj;       //example of how the vOut will scale with vAdj
-        printf("vOut = %f vAdj = %f\n\n", vOut, vAdj);     // see our values
-    // insert code to output vAdj to amplifier
+        printf("vOut = %f vAdj = %f\n\n", vOut, vAdj);     // see our values for testing
+
+        vAdj = pinA_8;    // example code to output vAdj to amplifier
+        
     }
     return 0 ;// do not know if we return 0 it will stop outputing vAdj
 }
